@@ -1,0 +1,24 @@
+funcprot(0); clc; clf; clear; 
+TD=400;
+
+function fun=Debye(Td)
+
+    fun = 3.*(Td).^3 .* integrate('t^4*exp(t)/(exp(t)-1)^2', 't', 0, 1./Td)
+endfunction
+
+function fun=EDF(Td)
+
+    fun = (9/16).*(1./Td.^2).*exp(3./(4.*Td)).*(1./(exp(3./(4.*Td))-1).^2)
+endfunction
+
+function fun=DP(Td)
+    fun = Td.^0
+endfunction
+
+x = linspace(0.01, 1.5, 100);
+
+plot(x, Debye(x), "k--");
+plot(x, EDF(x), "b*-");
+plot(x, DP(x), "r","thickness",2);
+
+legend(['Debye', 'EDF', 'DP']);
