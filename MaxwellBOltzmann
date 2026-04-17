@@ -1,0 +1,29 @@
+funcprot(0); 
+clc; 
+clf;
+clear;
+kB=1.380649e-23; 
+
+Ei=0;Ef=12.42e-21;
+N=50; 
+E=linspace(Ei,Ef,N)'; 
+T=300;
+function [MB]=Maxwell_Boltzmann(T,mu)
+    for i=1:N
+        MB(i)=exp(-(E(i)-mu)/(kB*T));
+    end
+endfunction
+mu1=0;mu2=5e-21;mu3=9e-21;
+plot(E./1e-21,Maxwell_Boltzmann(T,mu1),'r.-');
+plot(E./1e-21,Maxwell_Boltzmann(T,mu2),'--m*');
+plot(E./1e-21,Maxwell_Boltzmann(T,mu3),'b.->');
+title("$\bf{Maxwell-Boltzmann\; Distributions\; for\; varying\; \mu}$","fontsize",3,"edgecol",5); 
+xlabel("$\bf{Energy\;of\;the\;State,E_{i}(10^{-21}J) \rightarrow}$","fontsize",2,"edgecol",5); 
+ylabel("$\bf{Average\;Occupancy\;of\;the\;State\;,<N_i> \rightarrow}$","fontsize",2,"edgecol",5); 
+xgrid();
+L1=legend(["mu="+string(mu1),"mu="+string(mu2),"mu="+string(mu3)],1);
+L1.font_size=2;
+L1.font_style=2;
+figaxes=gca();
+figaxes.box="on";
+figaxes.data_bounds=[0 0;8 10]; 
